@@ -1,0 +1,66 @@
+-- Table de base Utilisateur
+CREATE TABLE Utilisateur (
+    id_user INT PRIMARY KEY AUTO_INCREMENT,
+    nom_user VARCHAR(50),
+    prenom_user VARCHAR(50),
+    email_user VARCHAR(100),
+    tele_user VARCHAR(15),
+    adresse_user VARCHAR(255),
+    password_user VARCHAR(255), -- Champ pour stocker le mot de passe (haché)
+    type_user ENUM('Etudiant', 'Enseignant', 'Responsable') -- Type d'utilisateur
+);
+-- Table spécifique aux étudiants
+CREATE TABLE Etudiant (
+    id_etudiant INT PRIMARY KEY,
+    id_user INT, -- Clé étrangère vers la table Utilisateur
+    date_naissance DATE,
+    niveau_etude VARCHAR(50),
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
+);
+
+-- Table spécifique aux enseignants
+CREATE TABLE Enseignant (
+    id_enseignant INT PRIMARY KEY,
+    id_user INT, -- Clé étrangère vers la table Utilisateur
+    specialite VARCHAR(100),
+    date_embauche DATE,
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
+);
+
+-- Table spécifique aux responsables
+CREATE TABLE Responsable (
+    id_responsable INT PRIMARY KEY,
+    id_user INT, -- Clé étrangère vers la table Utilisateur
+    departement VARCHAR(100),
+    date_nomination DATE,
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
+);
+
+CREATE TABLE Projet (
+    id_prjt INT PRIMARY KEY AUTO_INCREMENT,
+    nomP VARCHAR(100),
+    type_projet VARCHAR(50), -- Formation, Hackathon, Atelier
+    date_debut DATE,
+    date_fin DATE,
+    description_projet TEXT,
+    date_creation DATE DEFAULT CURRENT_DATE, -- Date de création automatique
+    statut ENUM('En attente', 'Validé', 'Refusé') DEFAULT 'En attente', -- Statut du projet
+    id_enseignant INT, -- L'enseignant qui a créé le projet
+    FOREIGN KEY (id_enseignant) REFERENCES Utilisateur(id_user) -- Lien avec l'enseignant dans la table Utilisateur
+);
+
+CREATE TABLE Candidature (
+    id_candidature INT PRIMARY KEY AUTO_INCREMENT,
+    id_etudiant INT, -- L'étudiant qui postule
+    id_prjt INT, -- Le projet auquel l'étudiant postule
+    date_postulation DATE DEFAULT CURRENT_DATE, -- Date de la postulation
+    statut ENUM('En attente', 'Accepté', 'Refusé') DEFAULT 'En attente', -- Statut de la candidature
+    FOREIGN KEY (id_etudiant) REFERENCES Utilisateur(id_user), -- Lien avec l'étudiant
+    FOREIGN KEY (id_prjt) REFERENCES Projet(id_prjt) -- Lien avec le projet
+);
+
+INSERT INTO Utilisateur (nom_user, prenom_user, email_user, tele_user, adresse_user, password_user, type_user)
+VALUES 
+('Essouissy', 'Diyaa', 'diyaa@example.com', '0612345678', '123 Rue Exemple, Maroc', SHA2('password123', 256), 'Enseignant'),
+('Dupont', 'Jean', 'jean.dupont@example.com', '0612345679', '456 Rue Exemple, Maroc', SHA2('student456', 256), 'Etudiant'),
+('El Khalfi', 'Rachid', 'rachid.khalfi@example.com', '0612345680', '789 Rue Exemple, Maroc', SHA2('admin789', 256), 'Responsable');

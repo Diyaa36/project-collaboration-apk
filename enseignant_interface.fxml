@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EnseignantController">
+    <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+
+    <Label text="Nom du Projet" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+    <TextField fx:id="nomProjetField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+    <Label text="Type de Projet" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+    <TextField fx:id="typeProjetField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+    <Label text="Description" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+    <TextArea fx:id="descriptionField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+    <Button fx:id="createProjectButton" text="Créer le Projet" GridPane.rowIndex="3" GridPane.columnIndex="1" onAction="#handleCreateProject" />
+</GridPane>

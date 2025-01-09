@@ -1,0 +1,26 @@
+bin/
+├──main/
+│   ├── Main.class 
+src/
+├── models/               // Contient les classes entités (Utilisateur, Etudiant, Enseignant, Responsable, Projet)
+│   ├── Utilisateur.java  // Classe Utilisateur
+│   ├── Etudiant.java     // Classe Etudiant (hérite de Utilisateur)
+│   ├── Enseignant.java   // Classe Enseignant (hérite de Utilisateur)
+│   ├── Responsable.java  // Classe Responsable (hérite de Utilisateur)
+│   └── Projet.java       // Classe Projet
+├── services/             // Contient la logique métier (gestion des projets, authentification)
+│   ├── AuthService.java  // Service d'authentification
+│   └── ProjetService.java // Service pour la gestion des projets (ajout, validation, etc.)
+├── controllers/          // Gestion des événements UI (JavaFX)
+│   ├── EnseignantController.java // Contrôleur pour l'interface de l'enseignant
+│   ├── ResponsableController.java // Contrôleur pour l'interface du responsable
+│   └── AuthController.java // Contrôleur pour la gestion de l'authentification
+├── views/                // Fichiers FXML pour l'interface utilisateur
+│   ├── enseignant_interface.fxml // Fichier FXML pour l'interface de l'enseignant
+│   ├── responsable_interface.fxml // Fichier FXML pour l'interface du responsable
+│   └── auth_interface.fxml // Fichier FXML pour l'interface d'authentification
+├── database/             // Gestion des interactions avec MySQL
+│   ├── DatabaseConnection.java // Classe pour établir la connexion à la base de données
+│   ├── ProjetDAO.java    // DAO pour gérer les projets
+│   └── UtilisateurDAO.java // DAO pour gérer les utilisateurs
+└── Main.java          // Classe principale pour lancer l'application JavaFX
